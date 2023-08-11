@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_meal_app/data/dummy_data.dart';
+import 'package:flutter_meal_app/screens/meals_screen.dart';
 import 'package:flutter_meal_app/widgets/category_item.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -19,7 +20,17 @@ class CategoriesScreen extends StatelessWidget {
               mainAxisSpacing: 20),
           children: [
             for (final category in availableCategories)
-              CategoryItem(category: category)
+              CategoryItem(
+                category: category,
+                onItemClicked: (item) {
+                  final filterMeal = dummyMeals
+                      .where((meal) => meal.categories.contains(item.id))
+                      .toList();
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => MealsScreen(
+                          mealsList: filterMeal, title: item.title)));
+                },
+              )
           ],
         ),
       ),
