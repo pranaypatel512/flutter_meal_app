@@ -8,32 +8,26 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: GridView(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 3 / 2,
-              crossAxisSpacing: 20,
-              mainAxisSpacing: 20),
-          children: [
-            for (final category in availableCategories)
-              CategoryItem(
-                category: category,
-                onItemClicked: (item) {
-                  final filterMeal = dummyMeals
-                      .where((meal) => meal.categories.contains(item.id))
-                      .toList();
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => MealsScreen(
-                          mealsList: filterMeal, title: item.title)));
-                },
-              )
-          ],
-        ),
-      ),
+    return GridView(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 3 / 2,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20),
+      children: [
+        for (final category in availableCategories)
+          CategoryItem(
+            category: category,
+            onItemClicked: (item) {
+              final filterMeal = dummyMeals
+                  .where((meal) => meal.categories.contains(item.id))
+                  .toList();
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) =>
+                      MealsScreen(mealsList: filterMeal, title: item.title)));
+            },
+          )
+      ],
     );
   }
 }
