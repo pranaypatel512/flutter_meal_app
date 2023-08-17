@@ -3,8 +3,10 @@ import 'package:flutter_meal_app/models/meals.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MealDetailScreen extends StatelessWidget {
-  const MealDetailScreen({super.key, required this.meanItem});
+  const MealDetailScreen(
+      {super.key, required this.meanItem, required this.ontoggleMeal});
   final Meal meanItem;
+  final void Function(Meal) ontoggleMeal;
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +64,15 @@ class MealDetailScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(meanItem.title),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  ontoggleMeal(meanItem);
+                },
+                icon: Icon(
+                  Icons.star,
+                ))
+          ],
         ),
         body: bodyContent);
   }
