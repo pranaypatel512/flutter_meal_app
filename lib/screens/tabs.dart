@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_meal_app/models/meals.dart';
 import 'package:flutter_meal_app/screens/categories_screen.dart';
 import 'package:flutter_meal_app/screens/meals_screen.dart';
+import 'package:flutter_meal_app/widgets/app_drawer.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -48,6 +49,13 @@ class _TabsScreenState extends State<TabsScreen> {
     }
   }
 
+  void _onSelection(String itemName) {
+    if (itemName == '') {
+    } else {
+      Navigator.of(context).pop();
+    }
+  }
+
   void _selectPage(int index) {
     setState(() {
       selectedIndex = index;
@@ -68,6 +76,9 @@ class _TabsScreenState extends State<TabsScreen> {
         title: Text(activePageTitle),
       ),
       body: bodyWidget,
+      drawer: MainDrawer(
+        onSelectedScreen: _onSelection,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedIndex,
         items: const [
