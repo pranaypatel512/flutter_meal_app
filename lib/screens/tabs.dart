@@ -22,9 +22,9 @@ class _TabsScreenState extends State<TabsScreen> {
   @override
   Widget build(BuildContext context) {
     Widget bodyWidget = CategoriesScreen();
-
+    activePageTitle = 'Category';
     if (selectedIndex == 1) {
-      bodyWidget = MealsScreen(mealsList: [], title: 'Favourite');
+      bodyWidget = MealsScreen(mealsList: []);
       activePageTitle = 'Your Favourite';
     }
     return Scaffold(
