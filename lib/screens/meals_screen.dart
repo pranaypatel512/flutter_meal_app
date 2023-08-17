@@ -4,9 +4,14 @@ import 'package:flutter_meal_app/screens/meal_details.dart';
 import 'package:flutter_meal_app/widgets/meal_item.dart';
 
 class MealsScreen extends StatelessWidget {
-  const MealsScreen({super.key, required this.mealsList, this.title});
+  const MealsScreen(
+      {super.key,
+      required this.mealsList,
+      this.title,
+      required this.ontoggleMeal});
   final String? title;
   final List<Meal> mealsList;
+  final void Function(Meal) ontoggleMeal;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +49,10 @@ class MealsScreen extends StatelessWidget {
             onClick: (p0) {
               Navigator.push(context, MaterialPageRoute(
                 builder: (context) {
-                  return MealDetailScreen(meanItem: p0);
+                  return MealDetailScreen(
+                    meanItem: p0,
+                    ontoggleMeal: ontoggleMeal,
+                  );
                 },
               ));
             },
