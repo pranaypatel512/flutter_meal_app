@@ -5,8 +5,9 @@ import 'package:flutter_meal_app/screens/meals_screen.dart';
 import 'package:flutter_meal_app/widgets/category_item.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({super.key, required this.ontoggleMeal});
+  const CategoriesScreen({super.key, required this.ontoggleMeal, required this.availableMeals});
   final void Function(Meal) ontoggleMeal;
+  final List<Meal> availableMeals;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class CategoriesScreen extends StatelessWidget {
           CategoryItem(
             category: category,
             onItemClicked: (item) {
-              final filterMeal = dummyMeals
+              final filterMeal = availableMeals
                   .where((meal) => meal.categories.contains(item.id))
                   .toList();
               Navigator.of(context).push(MaterialPageRoute(
