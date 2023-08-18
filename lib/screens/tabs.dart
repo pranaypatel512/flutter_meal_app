@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_meal_app/models/meals.dart';
+import 'package:flutter_meal_app/provider/favorite_provider.dart';
 import 'package:flutter_meal_app/provider/meal_provider.dart';
 import 'package:flutter_meal_app/screens/categories_screen.dart';
 import 'package:flutter_meal_app/screens/filter_screen.dart';
@@ -24,41 +25,10 @@ class TabsScreen extends ConsumerStatefulWidget {
 class _TabsScreenState extends ConsumerState<TabsScreen> {
   int selectedIndex = 0;
   var activePageTitle = 'Category';
-  final List<Meal> _favouriteMeals = [];
   Map<Filter, bool> filters = kInitialFilter;
 
-  void _showMessage(String message) {
-    ScaffoldMessenger.of(context).clearMaterialBanners();
-    ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
-        content: Text(
-          message,
-          style: Theme.of(context)
-              .textTheme
-              .titleMedium
-              ?.copyWith(color: Theme.of(context).colorScheme.onBackground),
-        ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).clearMaterialBanners();
-              },
-              icon: const Icon(Icons.close))
-        ]));
-  }
+  
 
-  void _toggleFavMeals(Meal meal) {
-    if (_favouriteMeals.contains(meal)) {
-      setState(() {
-        _favouriteMeals.remove(meal);
-      });
-      _showMessage('Meal is no longer a favourite');
-    } else {
-      setState(() {
-        _favouriteMeals.add(meal);
-      });
-      _showMessage('Marked as a favourite');
-    }
-  }
 
   void _onSelection(String itemName) async {
     Navigator.of(context).pop();
@@ -100,13 +70,13 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
       return true;
     }).toList();
     Widget bodyWidget = CategoriesScreen(
-      ontoggleMeal: _toggleFavMeals,
       availableMeals: filterMeals,
     );
     activePageTitle = 'Category';
     if (selectedIndex == 1) {
+      final favouriteMeals = ref.watch(favoriteMealsNotifier);
       bodyWidget = MealsScreen(
-          mealsList: _favouriteMeals, ontoggleMeal: _toggleFavMeals);
+          mealsList: favouriteMeals, );
       activePageTitle = 'Your Favourite';
     }
     return Scaffold(

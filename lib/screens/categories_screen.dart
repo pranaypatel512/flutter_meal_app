@@ -5,8 +5,7 @@ import 'package:flutter_meal_app/screens/meals_screen.dart';
 import 'package:flutter_meal_app/widgets/category_item.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({super.key, required this.ontoggleMeal, required this.availableMeals});
-  final void Function(Meal) ontoggleMeal;
+  const CategoriesScreen({super.key,  required this.availableMeals});
   final List<Meal> availableMeals;
 
   @override
@@ -29,7 +28,6 @@ class CategoriesScreen extends StatelessWidget {
                   builder: (context) => MealsScreen(
                         mealsList: filterMeal,
                         title: item.title,
-                        ontoggleMeal: ontoggleMeal,
                       )));
             },
           )
