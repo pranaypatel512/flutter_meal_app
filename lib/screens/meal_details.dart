@@ -10,6 +10,8 @@ class MealDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final favoriteMeal = ref.watch(favoriteMealsNotifier);
+    final isFav = favoriteMeal.contains(mealItem);
     late Widget bodyContent;
 
     bodyContent = SingleChildScrollView(
@@ -85,7 +87,7 @@ class MealDetailScreen extends ConsumerWidget {
                           })));
                 },
                 icon: Icon(
-                  Icons.star,
+                  isFav ? Icons.star : Icons.star_border_outlined,
                 ))
           ],
         ),
