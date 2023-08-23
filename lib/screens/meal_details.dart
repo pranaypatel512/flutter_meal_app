@@ -86,8 +86,18 @@ class MealDetailScreen extends ConsumerWidget {
                             ScaffoldMessenger.of(context).clearSnackBars();
                           })));
                 },
-                icon: Icon(
-                  isFav ? Icons.star : Icons.star_border_outlined,
+                icon: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  child: Icon(
+                    isFav ? Icons.star : Icons.star_border_outlined,
+                    key: ValueKey(isFav),
+                  ),
+                  transitionBuilder: (child, animation) {
+                    return RotationTransition(
+                      turns: Tween(begin: 0.8, end: 1.0).animate(animation),
+                      child: child,
+                    );
+                  },
                 ))
           ],
         ),
